@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+    <body>
+    {% block content %}
+        <div class="container">
+            {% for study_group, student in all_set_student.items %}
+                <h3>Группа: {{ study_group.name }}</h3>
+                <h5>Студенты:</h5>
+                {% for s in student %}
+                    <div>{{ s.name }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endblock content %}
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+    <body>
+    {% block content %}
+        <div class="container">
+            {% for academic_discipline, study_group in all_set_study_group.items %}
+                <h3>Название дисциплины: {{ academic_discipline.name }}</h3>
+                <h5>Группы:</h5>
+                {% for s_g in study_group %}
+                    <div>{{ s_g.name }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endblock content %}
+    </body>
+</html>

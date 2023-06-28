@@ -1,4 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from education import settings
 
 
 class Curator(models.Model):
@@ -41,6 +43,11 @@ class StudyGroup(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def save(self, *args, **kwargs):
+    #     if StudyGroup.objects.count() < settings.MAX_STUDY_GROUP_COUNT:
+    #         super().save(*args, **kwargs)
+    #     raise ValidationError('Слишком много записей типа SomeModel!')
 
     class Meta:
         verbose_name = 'Учебная группа'
