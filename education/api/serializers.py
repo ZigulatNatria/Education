@@ -2,41 +2,52 @@ from rest_framework import serializers
 from university.models import Curator, DirectionTraining, AcademicDiscipline, StudyGroup, Student
 
 
-class CuratorSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Curator
-        fields = ('__all__')
+        model = Student
+        fields = [
+            'name',
+            'gender',
+        ]
+
+
+class StudyGroupSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(many=True)
+
+    class Meta:
+        model = StudyGroup
+        fields = [
+            'name',
+            'student'
+        ]
+
+
+class AcademicDisciplineSerializer(serializers.ModelSerializer):
+    study_group = StudyGroupSerializer(many=True)
+
+    class Meta:
+        model = AcademicDiscipline
+        fields = [
+            'name',
+            'study_group',
+        ]
 
 
 class DirectionTrainingSerializer(serializers.ModelSerializer):
-    curator = serializers.SlugRelatedField(slug_field='name', queryset=Curator.objects.all())
+    academic_discipline = AcademicDisciplineSerializer(many=True)
 
     class Meta:
         model = DirectionTraining
         fields = [
             'name',
-            'curator',
+            'academic_discipline',
         ]
 
 
-class AcademicDisciplineSerializer(serializers.ModelSerializer):
+class CuratorSerializer(serializers.ModelSerializer):
+    direction_training = DirectionTrainingSerializer(many=True)
 
     class Meta:
-        model = AcademicDiscipline
-        fields = ('__all__')
-
-
-class StudyGroupSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = StudyGroup
-        fields = ('__all__')
-
-
-class StudentSerializer(serializers.ModelSerializer):
-    study_group = serializers.SlugRelatedField(slug_field='name', queryset=StudyGroup.objects.all())
-
-    class Meta:
-        model = Student
-        fields = ('__all__')
+        model = Curator
+        fields = '__all__'

@@ -76,7 +76,14 @@ class DirectionTrainingXLSX(XLSXFileMixin, generics.ListAPIView):
 
 
 class StudentXLSX(XLSXFileMixin, generics.ListAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    queryset = StudyGroup.objects.all()
+    serializer_class = StudyGroupSerializer
     renderer_classes = (XLSXRenderer,)
     filename = 'student.xlsx'
+
+
+class CuratorXLSX(XLSXFileMixin, generics.ListAPIView):
+    queryset = Curator.objects.all()
+    serializer_class = CuratorSerializer
+    renderer_classes = (XLSXRenderer,)
+    filename = 'curator.xlsx'
