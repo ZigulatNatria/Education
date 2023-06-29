@@ -54,7 +54,13 @@ class StudyGroup(models.Model):
 
 
 class Student(models.Model):
+    GENDER = [
+        ('Муж', 'Муж'),
+        ('Жен', 'Жен')
+    ]
+
     name = models.CharField('Имя студента', max_length=150)
+    gender = models.CharField('Пол', max_length=3, choices=GENDER)
     study_group = models.ForeignKey(StudyGroup, verbose_name='Учебная группа', on_delete=models.CASCADE)
 
     def __str__(self):

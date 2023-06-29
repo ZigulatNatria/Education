@@ -10,10 +10,14 @@ class CuratorSerializer(serializers.ModelSerializer):
 
 
 class DirectionTrainingSerializer(serializers.ModelSerializer):
+    curator = serializers.SlugRelatedField(slug_field='name', queryset=Curator.objects.all())
 
     class Meta:
         model = DirectionTraining
-        fields = ('__all__')
+        fields = [
+            'name',
+            'curator',
+        ]
 
 
 class AcademicDisciplineSerializer(serializers.ModelSerializer):
@@ -31,6 +35,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    study_group = serializers.SlugRelatedField(slug_field='name', queryset=StudyGroup.objects.all())
 
     class Meta:
         model = Student

@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
-from .views import CuratorAPI, DirectionTrainingAPI, AcademicDisciplineAPI, StudyGroupAPI, StudentAPI
+from .views import CuratorAPI, DirectionTrainingAPI, AcademicDisciplineAPI, StudyGroupAPI, StudentAPI, \
+    DirectionTrainingXLSX, StudentXLSX
 
 
 urlpatterns =[
@@ -9,4 +10,6 @@ urlpatterns =[
     path('academic_discipline/', AcademicDisciplineAPI.as_view()),
     path('study_group/', StudyGroupAPI.as_view()),
     path('student/', StudentAPI.as_view()),
+    path('report_direction/', DirectionTrainingXLSX.as_view(), name='report_direction'),
+    path('report_student/', StudentXLSX.as_view(), name='report_student'),
 ]

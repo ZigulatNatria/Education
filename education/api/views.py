@@ -3,6 +3,9 @@ from rest_framework import generics, status
 from university.models import Curator, DirectionTraining, AcademicDiscipline, StudyGroup, Student
 from .serializers import CuratorSerializer, DirectionTrainingSerializer, AcademicDisciplineSerializer, \
     StudyGroupSerializer, StudentSerializer
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from drf_excel.mixins import XLSXFileMixin
+from drf_excel.renderers import XLSXRenderer
 
 
 class CuratorAPI(generics.ListAPIView):
@@ -63,3 +66,17 @@ class StudentAPI(generics.ListAPIView):
             serializer.save()
             return Response({'id': serializer.data['id']}, status=status.HTTP_201_CREATED)
         return Response({'400': 'Не верно введены данные'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DirectionTrainingXLSX(XLSXFileMixin, generics.ListAPIView):
+    queryset = DirectionTraining.objects.all()
+    serializer_class = DirectionTrainingSerializer
+    renderer_classes = (XLSXRenderer,)
+    filename = 'direction_training.xlsx'
+
+
+class StudentXLSX(XLSXFileMixin, generics.ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    renderer_classes = (XLSXRenderer,)
+    filename = 'student.xlsx'
