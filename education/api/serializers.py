@@ -3,6 +3,7 @@ from university.models import Curator, DirectionTraining, AcademicDiscipline, St
 
 
 class StudentSerializer(serializers.ModelSerializer):
+    # gender = Student.objects.filter(gender='Жен')
 
     class Meta:
         model = Student

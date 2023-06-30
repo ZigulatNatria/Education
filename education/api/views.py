@@ -3,7 +3,6 @@ from rest_framework import generics, status
 from university.models import Curator, DirectionTraining, AcademicDiscipline, StudyGroup, Student
 from .serializers import CuratorSerializer, DirectionTrainingSerializer, AcademicDisciplineSerializer, \
     StudyGroupSerializer, StudentSerializer
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from drf_excel.mixins import XLSXFileMixin
 from drf_excel.renderers import XLSXRenderer
 
