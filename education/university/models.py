@@ -2,11 +2,22 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
+class DbLimitException(BaseException):
+    pass
+
+
 class Curator(models.Model):
     name = models.CharField('Имя куратора', max_length=150)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        total_records = Curator.objects.count()
+        if total_records >= 5:
+            raise DbLimitException({"message": "Db limit reached please delete to add more data"})
+        else:
+            super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Куратор'
